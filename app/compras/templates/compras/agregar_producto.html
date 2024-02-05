@@ -1,20 +1,84 @@
 <!DOCTYPE html>
+{% load django_bootstrap5 %}
 <html lang="en">
 <head>
+    {% bootstrap_css %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Agregar Producto</title>
+    <style>
+        .container {
+            min-width: 100%;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container{
+            margin: 1rem;
+            padding: 1rem;
+            width: 20rem;
+            heigth: 100vh;
+            background-color: #655560;
+        }
+
+        p{
+            color: white;
+            margin: 0;
+        }
+
+        input{
+            margin: 1rem 0 1rem 0;
+        }
+        button{
+            margin-top: 1rem;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+
+
+    </style>
 </head>
 <body>
-    <form>
-        <p>Nombre:</p>
-        <input type="text">
-        <p>Precio:</p>
-        <input type="number">
-        <p>Stock Actual:</p>
-        <input type="number">
-        <p>Proveedor:</p>
-        <input type="text">
-        <input type="submit">
-    </form>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+
+        <div class="form-container d-flex justify-content-center">
+            <form class="d-flex flex-column" method="POST">
+                {% csrf_token %}
+                <p>Nombre:</p>
+                    <input type="text" name="txtNombre">
+                <p>Precio:</p>
+                <input type="number" name="nmbPrecio">
+                <p>Stock Actual:</p>
+                <input type="number" name="nmbStock">
+                <p>Proveedor</p>
+
+                <select name="txtProveedor">
+                    {% for proveedor in proveedores %}
+                    <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="button" class="btn btn-dark"
+                    onclick="window.open('http://127.0.0.1:8000/compras/proveedores/agregar',
+                    '_blank');">Agregar proveedor
+                </button>
+
+                <input type="submit" class="btn btn-dark" name="Agregar">
+
+        </form>
+
+        </div>
+            <button type="button" class="btn btn-dark">
+                <a href="http://127.0.0.1:8000/compras/productos/listado">Volver a Productos</a>
+            </button>
+
+    </div>
+
+    {% bootstrap_javascript %}
+
 </body>
 </html>

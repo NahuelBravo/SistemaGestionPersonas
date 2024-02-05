@@ -5,15 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-    <form>
+    <form method="POST">
+        {% csrf_token %}
         <p>Razon social:</p>
-        <input type="text">
+        <input type="text" name="txtRazon">
         <p>CUIT:</p>
-        <input type="number">
+        <input type="text" name="nmbCuit">
         <p>Celular:</p>
-        <input type="number">
-        <input type="submit">
+        <input type="text" name="nmbCel">
+        <input type="submit" class="btn btn-primary">
     </form>
+    <button onclick="cerrarVentana()">Guardar cambios</button>
 
 </body>
+<script>
+    function cerrarVentana() {
+        // Cerrar la ventana actual
+        window.close();
+    }
+</script>
 </html>

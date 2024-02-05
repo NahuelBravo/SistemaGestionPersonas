@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Productos</title>
     {% bootstrap_css %}
     <style>
         .table-header {
@@ -30,15 +30,18 @@
         }
 
         a{
-            color: black;
+            color: white;
             text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <button type="button" class="btn btn-primary"><a href="http://127.0.0.1:8000/compras/proveedores/listado">Agregar nuevo producto</a></button>
+    <button type="button" class="btn btn-dark">
+        <a href="http://127.0.0.1:8000/compras/productos/agregar">Agregar nuevo producto</a>
+    </button>
 
     <div class="container d-flex flex-column">
+
         <div class="table-header d-flex flex-row justify-content-around">
             <p class="col-1">ID</p>
             <p class="col-2">Nombre</p>
@@ -46,6 +49,7 @@
             <p class="col-2">Stock Actual</p>
             <p class="col-2">Proveedor</p>
         </div>
+
         {% for producto in productos %}
             <hr size="10">
             <div class="product-container d-flex flex-row justify-content-around">
@@ -56,7 +60,9 @@
                 <p class="col-2">{{producto.proveedor.razon_social}}</p>
             </div>
         {% endfor %}
+
     </div>
+
 {% bootstrap_javascript %}
 </body>
 </html>
