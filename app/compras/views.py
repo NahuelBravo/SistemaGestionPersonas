@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from .models import Proveedor, Producto
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.shortcuts import render
 
 
 # Create your views here.
@@ -15,7 +14,6 @@ def listado_productos(request):
 
 def agregar_producto(request):
     proveedores = Proveedor.objects.all()
-
     if request.method == 'POST':
         nombre = request.POST['txtNombre']
         precio = request.POST['nmbPrecio']
