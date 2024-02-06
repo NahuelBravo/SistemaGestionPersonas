@@ -8,7 +8,6 @@ from django.urls import reverse
 # Create your views here.
 
 def listado_productos(request):
-
     lista_productos = list(Producto.objects.select_related('proveedor').all())
 
     return render(request, 'compras/listado_productos.html', {'productos': lista_productos})
@@ -30,8 +29,9 @@ def agregar_producto(request):
 
 
 def listado_proveedores(request):
+    lista_proveedores = list(Proveedor.objects.all())
 
-    return render(request, 'compras/listado_proveedores.html')
+    return render(request, 'compras/listado_proveedores.html', {'proveedores': lista_proveedores})
 
 
 def agregar_proveedor(request):

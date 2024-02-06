@@ -36,49 +36,38 @@
             color: white;
             text-decoration: none;
         }
-
-
-
     </style>
 </head>
 <body>
-
     <div class="container d-flex flex-column justify-content-center align-items-center">
-
         <div class="form-container d-flex justify-content-center">
             <form class="d-flex flex-column" method="POST">
                 {% csrf_token %}
                 <p>Nombre:</p>
-                    <input type="text" name="txtNombre">
+                <input type="text" name="txtNombre">
                 <p>Precio:</p>
                 <input type="number" name="nmbPrecio">
                 <p>Stock Actual:</p>
                 <input type="number" name="nmbStock">
                 <p>Proveedor</p>
 
-                <select name="txtProveedor">
+                <select name="txtProveedor" >
+                    <option selected="true" disabled="disabled">Seleccione proveedor</option>
                     {% for proveedor in proveedores %}
                     <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
                     {% endfor %}
                 </select>
-
                 <button type="button" class="btn btn-dark"
                     onclick="window.open('http://127.0.0.1:8000/compras/proveedores/agregar',
                     '_blank');">Agregar proveedor
                 </button>
-
-                <input type="submit" class="btn btn-dark" name="Agregar">
-
-        </form>
-
+                <input type="submit" class="btn btn-dark">
+            </form>
         </div>
             <button type="button" class="btn btn-dark">
                 <a href="http://127.0.0.1:8000/compras/productos/listado">Volver a Productos</a>
             </button>
-
-    </div>
-
-    {% bootstrap_javascript %}
-
+        </div>
 </body>
+{% bootstrap_javascript %}
 </html>
