@@ -52,14 +52,19 @@
                 <input type="submit" class="btn btn-dark">
             </form>
         </div>
-        <button onclick="cerrarVentana()" class="btn btn-dark">Finalizar</button>
+        <button type="button" class="btn btn-dark" id="boton-retorno">
+    Volver atrás
+</button>
+
     </div>
 </body>
 {% bootstrap_javascript %}
 <script>
-    function cerrarVentana() {
-        // Cerrar la ventana actual
-        window.close();
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+    var botonRetorno = document.getElementById('boton-retorno');
+    botonRetorno.addEventListener('click', function() {
+        window.history.back(); // Redirigir a la página anterior en el historial del navegador
+        });
+    });
 </script>
 </html>
