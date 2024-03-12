@@ -1,0 +1,75 @@
+
+
+<!DOCTYPE html>
+{% load django_bootstrap5 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    {% bootstrap_css %}
+    <style>
+        .table-header {
+            background-color: #655560;
+            color: #ffffff;
+        }
+        .product-container {
+            background-color: #C4CAD0;
+        }
+        p{
+            text-align: center;
+            margin: 1rem 0
+        }
+        hr{
+            margin: 0;
+            border: 5px solid #A4969B;
+            width: 100%;
+        }
+
+        button{
+            margin: 1rem;
+        }
+
+        a{
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <button type="button" class="btn btn-dark">
+        <a href="http://127.0.0.1:8000/compras/productos/agregar">Agregar nuevo producto</a>
+    </button>
+
+    <div class="container d-flex flex-column">
+
+        <div class="table-header d-flex flex-row justify-content-around">
+            <p class="col-1">ID</p>
+            <p class="col-2">Nombre</p>
+            <p class="col-2">Precio</p>
+            <p class="col-2">Stock Actual</p>
+            <p class="col-2">Proveedor</p>
+            <p class="col-1"></p>
+        </div>
+
+        {% for producto in productos %}
+            <hr size="10">
+            <div class="product-container d-flex flex-row justify-content-around">
+                <p class="col-1">{{producto.id}}</p>
+                <p class="col-2">{{producto.nombre}}</p>
+                <p class="col-2">{{producto.precio}}</p>
+                <p class="col-2">{{producto.stock_actual}}</p>
+                <p class="col-2">{{producto.proveedor.razon_social}}</p>
+                <div class="col-1">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <input type="submit" value="Eliminar">
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% bootstrap_javascript %}
+</body>
+</html>
