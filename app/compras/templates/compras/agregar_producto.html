@@ -36,6 +36,11 @@
             color: white;
             text-decoration: none;
         }
+
+        .container-select button{
+            margin: 0 1rem;
+        }
+
     </style>
 </head>
 <body>
@@ -43,6 +48,18 @@
         <div class="form-container d-flex justify-content-center">
             <form class="d-flex flex-column" method="POST">
                 {% csrf_token %}
+                <div class="container-select d-flex flex-row justify-content-center align-items-center">
+                    <select name="txtProveedor" >
+                        <option selected="true" disabled="disabled">Seleccione proveedor</option>
+                    {% for proveedor in proveedores %}
+                        <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
+                    {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-dark">
+                        <a href="http://127.0.0.1:8000/compras/proveedores/agregar/">+</a>
+                    </button>
+                </div>
+
                 <p>Nombre:</p>
                 <input type="text" name="txtNombre">
                 <p>Precio:</p>
@@ -51,23 +68,20 @@
                 <input type="number" name="nmbStock">
                 <p>Proveedor</p>
 
-                <select name="txtProveedor" >
-                    <option selected="true" disabled="disabled">Seleccione proveedor</option>
-                    {% for proveedor in proveedores %}
-                    <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" class="btn btn-warning"
-                    onclick="window.open('http://127.0.0.1:8000/compras/proveedores/agregar',
-                    '_blank');">Agregar proveedor
-                </button>
                 <input type="submit" class="btn btn-dark">
             </form>
         </div>
-            <button type="button" class="btn btn-dark">
-                <a href="http://127.0.0.1:8000/compras/productos/listado">Volver a Productos</a>
-            </button>
-        </div>
+        <button type="button" class="btn btn-dark" id="boton-retorno">
+            Volver atrás
+        </button>
 </body>
 {% bootstrap_javascript %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var botonRetorno = document.getElementById('boton-retorno');
+    botonRetorno.addEventListener('click', function() {
+        window.history.back(); // Redirigir a la página anterior en el historial del navegador
+        });
+    });
+</script>
 </html>
