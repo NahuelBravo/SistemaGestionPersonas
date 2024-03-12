@@ -48,6 +48,7 @@
             <p class="col-2">Precio</p>
             <p class="col-2">Stock Actual</p>
             <p class="col-2">Proveedor</p>
+            <p class="col-1"></p>
         </div>
 
         {% for producto in productos %}
@@ -58,9 +59,15 @@
                 <p class="col-2">{{producto.precio}}</p>
                 <p class="col-2">{{producto.stock_actual}}</p>
                 <p class="col-2">{{producto.proveedor.razon_social}}</p>
+                <div class="col-1">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <input type="submit" value="Eliminar">
+                    </form>
+                </div>
             </div>
         {% endfor %}
-
     </div>
 
 {% bootstrap_javascript %}

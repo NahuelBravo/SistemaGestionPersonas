@@ -47,6 +47,7 @@
             <p class="col-2">Razon social</p>
             <p class="col-2">CUIT</p>
             <p class="col-2">Celular</p>
+            <p class="col-1"></p>
         </div>
 
         {% for proveedor in proveedores %}
@@ -56,6 +57,13 @@
                 <p class="col-2">{{proveedor.razon_social}}</p>
                 <p class="col-2">{{proveedor.cuit}}</p>
                 <p class="col-2">{{proveedor.celular}}</p>
+                <div class="col-1">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="proveedor_id" value="{{ proveedor.id }}">
+                        <input type="submit" value="Eliminar">
+                    </form>
+                </div>
             </div>
         {% endfor %}
     </div>
