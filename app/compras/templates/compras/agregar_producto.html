@@ -36,13 +36,29 @@
             color: white;
             text-decoration: none;
         }
+
+        .container-select button{
+            margin: 0 2rem;
+        }
     </style>
 </head>
 <body>
     <div class="container d-flex flex-column justify-content-center align-items-center">
         <div class="form-container d-flex justify-content-center">
-            <form class="d-flex flex-column" method="POST">
+            <form class="container-select d-flex flex-column" method="POST">
                 {% csrf_token %}
+                <div class="d-flex justify-content-center align-items-center">
+                    <select name="txtProveedor" >
+                        <option selected="true" disabled="disabled">Seleccione proveedor</option>
+                    {% for proveedor in proveedores %}
+                        <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
+                    {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-dark">
+                        <a href="http://127.0.0.1:8000/compras/proveedores/agregar/">+</a>
+                    </button>
+                </div>
+
                 <p>Nombre:</p>
                 <input type="text" name="txtNombre">
                 <p>Precio:</p>
@@ -50,16 +66,6 @@
                 <p>Stock Actual:</p>
                 <input type="number" name="nmbStock">
                 <p>Proveedor</p>
-
-                <select name="txtProveedor" >
-                    <option selected="true" disabled="disabled">Seleccione proveedor</option>
-                    {% for proveedor in proveedores %}
-                    <option value="{{proveedor.id}}">{{proveedor.razon_social}}</option>
-                    {% endfor %}
-                </select>
-                    <button type="button" class="btn btn-dark">
-                        <a href="http://127.0.0.1:8000/compras/proveedores/agregar/">+</a>
-                    </button>
                 <input type="submit" class="btn btn-dark">
             </form>
         </div>
