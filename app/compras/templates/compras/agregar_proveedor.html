@@ -12,6 +12,10 @@
             margin: 0;
         }
 
+        h1{
+            font-size: 1rem;
+        }
+
         .form-container{
             margin: 1rem;
             padding: 1rem;
@@ -42,14 +46,25 @@
     <div class="container d-flex flex-column justify-content-center align-items-center">
         <div class="form-container d-flex justify-content-center">
             <form method="POST" class="d-flex flex-column">
+                {% if mensaje %}
+                <h1>{{ mensaje }}</h1>
+                {% endif %}
                 {% csrf_token %}
                 <p>Razon social:</p>
-                <input type="text" name="txtRazon">
+                <input type="text" name="txtRazon" value="{{ proveedor.nombre_proveedor }}">
                 <p>CUIT:</p>
-                <input type="text" name="nmbCuit">
+                <input type="text" name="nmbCuit" value="{{ proveedor.cuit_proveedor }}">
                 <p>Celular:</p>
-                <input type="text" name="nmbCel">
+                <input type="text" name="nmbCel" value="{{ proveedor.celular_proveedor }}">
                 <input type="submit" class="btn btn-dark">
+                {% if errores%}
+                    <h2>Errores:</h2>
+                    <ul>
+                        {% for error in errores %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </form>
         </div>
         <button type="button" class="btn btn-dark" id="boton-retorno">
@@ -63,7 +78,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var botonRetorno = document.getElementById('boton-retorno');
     botonRetorno.addEventListener('click', function() {
-        window.history.back(); // Redirigir a la página anterior en el historial del navegador
+        window.history.back();
     });
 });
 </script>

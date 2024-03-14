@@ -35,15 +35,40 @@ def verificar_proveedor(request):
     nombre_proveedor = request.POST['txtRazon']
     cuit_proveedor = request.POST['nmbCuit']
     celular_proveedor = request.POST['nmbCel']
+    errores = []
+    proveedor = {'nombre_proveedor': "", 'cuit_proveedor': 0, 'celular_proveedor': 0}
 
     if Proveedor.objects.filter(razon_social=nombre_proveedor).exists():
-        return "Razón Social Inválida: La razón social ya pertenece a otro proveedor"
-    elif Proveedor.objects.filter(cuit=cuit_proveedor).exists():
-        return "CUIT Inválido: El CUIT ya pertenece a otro proveedor"
-    elif Proveedor.objects.filter(celular=celular_proveedor).exists():
-        return "Celular Inválido: El celular ya pertenece a otro proveedor"
+        errores.append("Razón Social Inválida: La razón social ya pertenece a otro proveedor")
+        proveedor['nombre_proveedor'] = ""
+        proveedor['cuit_proveedor'] = cuit_proveedor
+        proveedor['celular_proveedor'] = celular_proveedor
 
-    Proveedor.objects.create(razon_social=nombre_proveedor, cuit=cuit_proveedor, celular=celular_proveedor)
+    if Proveedor.objects.filter(cuit=cuit_proveedor).exists():
+        errores.append("CUIT Inválido: El CUIT ya pertenece a otro proveedor")
+        proveedor['nombre_proveedor'] = nombre_proveedor
+        proveedor['cuit_proveedor'] = 0
+        proveedor['celular_proveedor'] = celular_proveedor
+
+    if Proveedor.objects.filter(celular=celular_proveedor).exists():
+        errores.append("Celular Inválido: El celular ya pertenece a otro proveedor")
+        proveedor['nombre_proveedor'] = nombre_proveedor
+        proveedor['cuit_proveedor'] = cuit_proveedor
+        proveedor['celular_proveedor'] = 0
+
+    if not errores:
+        proveedor, creado = Proveedor.objects.get_or_create(
+            razon_social=nombre_proveedor,
+            cuit=cuit_proveedor,
+            celular=celular_proveedor
+        )
+        if creado:
+            return errores, proveedor
+        else:
+            errores.append("El proveedor ya existe")
+            return errores, proveedor
+    else:
+        return errores, proveedor
 
 
 def borrar_proveedor(request):
@@ -52,5 +77,6 @@ def borrar_proveedor(request):
 
     try:
         proveedor.delete()
-    except:
-        return HttpResponseNotFound("Proveedor no encontrado")
+        return True
+    except Proveedor.DoesNotExist:
+        return False
