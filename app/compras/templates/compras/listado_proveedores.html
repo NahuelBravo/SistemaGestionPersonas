@@ -1,39 +1,12 @@
-
-
 <!DOCTYPE html>
 {% load django_bootstrap5 %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Proveedores</title>
     {% bootstrap_css %}
-    <style>
-        .table-header {
-            background-color: #655560;
-            color: #ffffff;
-        }
-        .product-container {
-            background-color: #C4CAD0;
-        }
-        p{
-            text-align: center;
-            margin: 1rem 0
-        }
-        hr{
-            margin: 0;
-            border: 5px solid #A4969B;
-            width: 100%;
-        }
-
-        button{
-            margin: 1rem;
-        }
-
-        a{
-            color: white;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'listas.css' %}">
 </head>
 <body>
     <button type="button" class="btn btn-warning">
